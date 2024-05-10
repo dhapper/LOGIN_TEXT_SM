@@ -11,8 +11,7 @@ public class test {
             MongoCollection<Document> collection = database.getCollection("credentials"); // Update collection name
 
             // Create a new document with username and password
-            Document newUser = new Document("username", "hibi")
-                    .append("password", "jibi");
+            Document newUser = new Document("username", "hibi").append("password", "jibi");
 
             // Insert the document into the collection
             collection.insertOne(newUser);

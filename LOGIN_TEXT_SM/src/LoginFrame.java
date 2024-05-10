@@ -48,8 +48,7 @@ public class LoginFrame {
 		panel.add(errorLabel);
 		errorLabel.setVisible(false);
 		
-		Authenticator auth = new Authenticator();
-		
+		CredentialProcessor auth = new CredentialProcessor();
 		loginButton.addActionListener(e-> {
 			String username = usernameField.getText();
             String password = passwordField.getText();
@@ -58,8 +57,25 @@ public class LoginFrame {
             
             if(auth.authenticate()) {
             	errorLabel.setText("Login Sucessful!");
+            	//move into next page here?
             }else {
             	errorLabel.setText("Error: Invalid Credentials");
+            }
+            errorLabel.setVisible(true);
+		});
+		
+		CredentialProcessor register = new CredentialProcessor();
+		registerButton.addActionListener(e-> {
+			String username = usernameField.getText();
+            String password = passwordField.getText();
+            
+            register.setCredentials(username, password);
+            
+            if(register.register()) {
+            	errorLabel.setText("Registration Sucessful!");
+            	//move into next page here?
+            }else {
+            	errorLabel.setText("Error: Username in use");
             }
             errorLabel.setVisible(true);
 		});
