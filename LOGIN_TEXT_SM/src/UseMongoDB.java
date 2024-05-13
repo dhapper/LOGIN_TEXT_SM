@@ -1,17 +1,16 @@
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.UpdateResult;
 
+import java.util.ArrayList;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class UseMongoDB {
-	
-	public static void main(String[] args) {
-		UseMongoDB a = new UseMongoDB();
-	}
 	
 	public boolean register(String username, String password) {
 		if(inDB(username, password) == "FREE") {
@@ -117,5 +116,24 @@ public class UseMongoDB {
             e.printStackTrace();
         }
 	}
-
+	
+	public ArrayList<String> collectUserPosts(String username) {
+		try (MongoClient mongoClient = new MongoClient("localhost", 27017)) {
+			MongoDatabase database = mongoClient.getDatabase("LOGIN_TEXT_SM_DB");
+            MongoCollection<Document> collection = database.getCollection("posts");
+            
+            Document query = new Document("username", username);
+            FindIterable<Document> results = collection.find(query);
+            
+            ArrayList<String> posts = new ArrayList<>();
+            for (Document document : results) {
+                posts.add(document.getString("post"));
+            }
+            return posts;
+      
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
+		return null;
+	}
 }

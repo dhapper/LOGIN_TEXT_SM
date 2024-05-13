@@ -57,7 +57,10 @@ public class LoginFrame {
             
             if(auth.authenticate()) {
             	errorLabel.setText("Login Sucessful!");
-            	//move into next page here?
+            	frame.dispose();
+            	AccountFrame af = new AccountFrame();
+            	af.accountFrame(username);
+            	
             }else {
             	errorLabel.setText("Error: Invalid Credentials");
             }
@@ -73,7 +76,6 @@ public class LoginFrame {
             
             if(register.register()) {
             	errorLabel.setText("Registration Sucessful!");
-            	//move into next page here?
             }else {
             	errorLabel.setText("Error: Username in use");
             }

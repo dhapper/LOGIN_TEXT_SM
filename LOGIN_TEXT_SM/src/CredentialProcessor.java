@@ -22,4 +22,8 @@ public class CredentialProcessor {
     	UseMongoDB useMongo = new UseMongoDB();
         return useMongo.register(username, password);
     }
+    
+    public String getUsername() {
+        return username;
+    }
 }
